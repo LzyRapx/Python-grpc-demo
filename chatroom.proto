@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+service ChatRoom {
+    rpc register(User) returns (SimpleResponse){}
+    rpc login(User) returns(LoginResponse) {}
+    rpc addFriend(addFriendRequest) returns(SimpleResponse) {}
+    rpc getNewFriend(getNewFriendRequest) returns(stream Friend) {}
+    rpc acceptNewFriend(acceptNewFriendRequest) returns(SimpleResponse) {}
+    rpc listFriends(listFriendsRequest) returns(listFriendsResponse) {}
+    rpc sendMessage(sendMessageRequest) returns(SimpleResponse) {}
+}
+
+enum State {
+    Fail = 0;
+    Success = 1;
+}
+
+message User {
+    string username = 1;
+    string password = 2;
+}
+
+message SimpleResponse {
+    string msg = 1;
+    State state = 2;
+}
+
+message LoginResponse {
+    string token = 1;
+    State state = 2;
+}
+
+message Friend {
+    string name = 1;
+}
+
+message addFriendRequest {
+    string user = 1;
+    string token = 2;
+    string friend = 3;
+}
+
+message listFriendsRequest {
+    string user = 1;
+    string token = 2;
+}
+
+message listFriendsResponse {
+    repeated string friends = 1;
+}
+
+message acceptNewFriendRequest {
+    string user = 1;
+    string token = 2;
+    string friend = 3;
+}
+
+message sendMessageRequest{
+    string token = 1;
+    string friend = 2;
+    string msg = 3;
+}
+
+message getNewFriendRequest {
+    string user= 1;
+    string token = 2;
+}
+
+message getNewFriendResponse {
+    string friend = 1;
+}
