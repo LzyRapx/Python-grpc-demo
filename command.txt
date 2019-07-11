@@ -1,1 +1,4 @@
+sudo python3 -m pip install grpcio
+sudo python3 -m pip protobuf
+sudo python3 -m pip grpcio-tools
 python3 -m grpc_tools.protoc --python_out=. --grpc_python_out=. -I. chatroom.proto
